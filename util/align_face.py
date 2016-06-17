@@ -24,6 +24,7 @@ import numpy as np
 import os,errno
 import random
 import shutil
+import pdb
 
 file_dir = os.path.dirname(os.path.realpath(__file__))
 modelDir = os.path.join(file_dir, '..', 'model')

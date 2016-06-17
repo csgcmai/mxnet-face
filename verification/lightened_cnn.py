@@ -3,9 +3,10 @@ import mxnet as mx
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-ctx = mx.gpu(0)
+#ctx = [mx.gpu(1),]
 
 def group(data, num_r, num, kernel, stride, pad, layer):
+    layer = layer + '_wxnet'
     if num_r > 0:
         conv_r = mx.symbol.Convolution(data=data, num_filter=num_r, kernel=(1,1), name=('conv%s_r' % layer))
         slice_r = mx.symbol.SliceChannel(data=conv_r, num_outputs=2, name=('slice%s_r' % layer))
@@ -25,15 +26,15 @@ def lightened_cnn_a_feature():
     pool3 = group(pool2, 0, 256, (5,5), (1,1), (0,0), str(3))
     pool4 = group(pool3, 0, 384, (4,4), (1,1), (0,0), str(4))
     flatten = mx.symbol.Flatten(data=pool4)
-    fc1 = mx.symbol.FullyConnected(data=flatten, num_hidden=512, name="fc1")
-    slice_fc1 = mx.symbol.SliceChannel(data=fc1, num_outputs=2, name="slice_fc1")
+    fc1 = mx.symbol.FullyConnected(data=flatten, num_hidden=512, name="fc1_wxnet")
+    slice_fc1 = mx.symbol.SliceChannel(data=fc1, num_outputs=2, name="slice_fc1_wxnet")
     mfm_fc1 = mx.symbol.maximum(slice_fc1[0], slice_fc1[1])
-    drop1 = mx.symbol.Dropout(data=mfm_fc1, p=0.7, name="drop1")
+    drop1 = mx.symbol.Dropout(data=mfm_fc1, p=0.7, name="drop1_wxnet")
     return drop1
 
 def lightened_cnn_a(num_classes=10575):
      drop1 = lightened_cnn_a_feature()
-     fc2 = mx.symbol.FullyConnected(data=drop1, num_hidden=num_classes, name="fc2")
+     fc2 = mx.symbol.FullyConnected(data=drop1, num_hidden=num_classes, name="fc2_wxnet")
      softmax = mx.symbol.SoftmaxOutput(data=fc2, name='softmax')
      return softmax
 
@@ -45,15 +46,15 @@ def lightened_cnn_b_feature():
      pool4 = group(pool3, 384, 256, (3,3), (1,1), (1,1), str(4))
      pool5 = group(pool4, 256, 256, (3,3), (1,1), (1,1), str(5))
      flatten = mx.symbol.Flatten(data=pool5)
-     fc1 = mx.symbol.FullyConnected(data=flatten, num_hidden=512, name="fc1")
-     slice_fc1 = mx.symbol.SliceChannel(data=fc1, num_outputs=2, name="slice_fc1")
+     fc1 = mx.symbol.FullyConnected(data=flatten, num_hidden=512, name="fc1_wxnet")
+     slice_fc1 = mx.symbol.SliceChannel(data=fc1, num_outputs=2, name="slice_fc1_wxnet")
      mfm_fc1 = mx.symbol.maximum(slice_fc1[0], slice_fc1[1])
-     drop1 = mx.symbol.Dropout(data=mfm_fc1, p=0.7, name="drop1")
+     drop1 = mx.symbol.Dropout(data=mfm_fc1, p=0.7, name="drop1_wxnet")
      return drop1
 
 def lightened_cnn_b(num_classes=10575):
      drop1 = lightened_cnn_b_feature()
-     fc2 = mx.symbol.FullyConnected(data=drop1, num_hidden=num_classes, name="fc2")
+     fc2 = mx.symbol.FullyConnected(data=drop1, num_hidden=num_classes, name="fc2_wxnet")
      softmax = mx.symbol.SoftmaxOutput(data=fc2, name='softmax')
      return softmax
 
@@ -70,9 +71,9 @@ def main():
         _, arg_params, aux_params = mx.model.load_checkpoint(args.model_load_prefix, args.model_load_epoch)
 
     train = mx.io.ImageRecordIter(
-        path_imgrec = args.data_dir + "casia_train.rec",
-        data_shape  = (1, 128, 128),
-        scale       = 1./255,
+        path_imgrec = args.data_dir + "casia_r108_train.rec",
+        data_shape  = (3, 96, 96),
+        #scale       = 1./255,
         batch_size  = args.batch_size,
         rand_crop   = True,
         rand_mirror = True,
@@ -80,10 +81,10 @@ def main():
         part_index  = kv.rank)
     if not args.retrain:
         val = mx.io.ImageRecordIter(
-            path_imgrec = args.data_dir + "casia_val.rec",
+            path_imgrec = args.data_dir + "casia_r108_val.rec",
             batch_size  = args.batch_size,
-            data_shape  = (1, 128, 128),
-            scale       = 1./255,
+            data_shape  = (3, 96, 96),
+            #scale       = 1./255,
             rand_crop   = True,
             rand_mirror = False,
             num_parts   = kv.num_workers,
@@ -99,7 +100,7 @@ def main():
         learning_rate      = args.lr,
         momentum           = 0.9,
         wd                 = 0.0005,
-        lr_scheduler       = mx.lr_scheduler.FactorScheduler(step=5*max(int(epoch_size * 1), 1), factor=0.8, stop_factor_lr=5e-5),
+        lr_scheduler       = mx.lr_scheduler.FactorScheduler(step=5*max(int(epoch_size * 1), 1), factor=0.81),
         initializer        = mx.init.Xavier(factor_type="in", magnitude=2.34))
     model.fit(
         X                  = train,
@@ -116,7 +117,7 @@ if __name__ == "__main__":
                         help='the prefix of the model to save')
     parser.add_argument('--lr', type=float, default=0.05, help='initialization learning reate')
     parser.add_argument('--batch-size', type=int, default=384, help='the batch size')
-    parser.add_argument('--num-examples', type=int, default=385504, help='the number of training examples')
+    parser.add_argument('--num-examples', type=int, default=413958, help='the number of training examples')
     parser.add_argument('--kv-store', type=str, default='local', help='the kvstore type')
     parser.add_argument('--model-load-prefix', type=str, default='../model/lightened_cnn', help='the prefix of the model to load')
     parser.add_argument('--model-load-epoch', type=int, default=1, help='load the model on an epoch using the model-load-prefix')

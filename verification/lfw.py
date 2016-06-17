@@ -3,6 +3,7 @@
 import argparse
 import logging
 import os
+import pdb
 import sys
 
 import cv2
@@ -45,12 +46,13 @@ def pairs_info(pair, suffix):
     return (name1, name2, same)
 
 def read2img(root, name1, name2, size, ctx):
-    pair_arr = np.zeros((2, 1, size, size), dtype=float)
-    img1 = np.expand_dims(cv2.imread(os.path.join(root, name1), 0), axis=0)
-    img2 = np.expand_dims(cv2.imread(os.path.join(root, name2), 0), axis=0)
-    assert(img1.shape == img2.shape == (1, size, size))
-    pair_arr[0][:] = img1/255.0
-    pair_arr[1][:] = img2/255.0
+    pair_arr = np.zeros((2, 3, size, size), dtype=float)
+    img1 = np.rollaxis(cv2.imread(os.path.join(root, name1)), 2,0)
+    img2 = np.rollaxis(cv2.imread(os.path.join(root, name2)), 2,0)
+    #pdb.set_trace()
+    assert(img1.shape == img2.shape == (3, size, size))
+    pair_arr[0][:] = img1
+    pair_arr[1][:] = img2
     return pair_arr
 
 def eval_acc(threshold, diff):
@@ -116,13 +118,13 @@ def print_result(args):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--pairs', type=str, default="./pairs.txt",
+    parser.add_argument('--pairs', type=str, default="/user/maiguang/Downloads/LFW/lfw_pairs.txt",
                         help='Location of the LFW pairs file from http://vis-www.cs.umass.edu/lfw/pairs.txt')
-    parser.add_argument('--lfw-align', type=str, default="./lfw-align",
+    parser.add_argument('--lfw-align', type=str, default="/user/maiguang/Downloads/LFW/lfw_deepfunneled_aligned_openface",
                         help='The directory of lfw-align, which contains the aligned lfw images')
-    parser.add_argument('--suffix', type=str, default="png",
+    parser.add_argument('--suffix', type=str, default="jpg",
                         help='The type of image')
-    parser.add_argument('--size', type=int, default=128,
+    parser.add_argument('--size', type=int, default=96,
                         help='the image size of lfw aligned image, only support squre size')
     parser.add_argument('--model-prefix', default='../model/lightened_cnn/lightened_cnn',
                         help='The trained model to get feature')

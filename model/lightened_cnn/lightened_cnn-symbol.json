@@ -10,14 +10,14 @@
     {
       "op": "null", 
       "param": {}, 
-      "name": "conv1_weight", 
+      "name": "conv1_wxnet_weight", 
       "inputs": [], 
       "backward_source_id": -1
     }, 
     {
       "op": "null", 
       "param": {}, 
-      "name": "conv1_bias", 
+      "name": "conv1_wxnet_bias", 
       "inputs": [], 
       "backward_source_id": -1
     }, 
@@ -33,7 +33,7 @@
         "stride": "(1,1)", 
         "workspace": "512"
       }, 
-      "name": "conv1", 
+      "name": "conv1_wxnet", 
       "inputs": [[0, 0], [1, 0], [2, 0]], 
       "backward_source_id": -1
     }, 
@@ -44,7 +44,7 @@
         "num_outputs": "2", 
         "squeeze_axis": "False"
       }, 
-      "name": "slice1", 
+      "name": "slice1_wxnet", 
       "inputs": [[3, 0]], 
       "backward_source_id": -1
     }, 
@@ -58,26 +58,27 @@
     {
       "op": "Pooling", 
       "param": {
+        "global_pool": "False", 
         "kernel": "(2,2)", 
         "pad": "(0,0)", 
         "pool_type": "max", 
         "stride": "(2,2)"
       }, 
-      "name": "pool1", 
+      "name": "pool1_wxnet", 
       "inputs": [[5, 0]], 
       "backward_source_id": -1
     }, 
     {
       "op": "null", 
       "param": {}, 
-      "name": "conv2_r_weight", 
+      "name": "conv2_wxnet_r_weight", 
       "inputs": [], 
       "backward_source_id": -1
     }, 
     {
       "op": "null", 
       "param": {}, 
-      "name": "conv2_r_bias", 
+      "name": "conv2_wxnet_r_bias", 
       "inputs": [], 
       "backward_source_id": -1
     }, 
@@ -93,7 +94,7 @@
         "stride": "(1,1)", 
         "workspace": "512"
       }, 
-      "name": "conv2_r", 
+      "name": "conv2_wxnet_r", 
       "inputs": [[6, 0], [7, 0], [8, 0]], 
       "backward_source_id": -1
     }, 
@@ -104,7 +105,7 @@
         "num_outputs": "2", 
         "squeeze_axis": "False"
       }, 
-      "name": "slice2_r", 
+      "name": "slice2_wxnet_r", 
       "inputs": [[9, 0]], 
       "backward_source_id": -1
     }, 
@@ -118,14 +119,14 @@
     {
       "op": "null", 
       "param": {}, 
-      "name": "conv2_weight", 
+      "name": "conv2_wxnet_weight", 
       "inputs": [], 
       "backward_source_id": -1
     }, 
     {
       "op": "null", 
       "param": {}, 
-      "name": "conv2_bias", 
+      "name": "conv2_wxnet_bias", 
       "inputs": [], 
       "backward_source_id": -1
     }, 
@@ -141,7 +142,7 @@
         "stride": "(1,1)", 
         "workspace": "512"
       }, 
-      "name": "conv2", 
+      "name": "conv2_wxnet", 
       "inputs": [[11, 0], [12, 0], [13, 0]], 
       "backward_source_id": -1
     }, 
@@ -152,7 +153,7 @@
         "num_outputs": "2", 
         "squeeze_axis": "False"
       }, 
-      "name": "slice2", 
+      "name": "slice2_wxnet", 
       "inputs": [[14, 0]], 
       "backward_source_id": -1
     }, 
@@ -166,26 +167,27 @@
     {
       "op": "Pooling", 
       "param": {
+        "global_pool": "False", 
         "kernel": "(2,2)", 
         "pad": "(0,0)", 
         "pool_type": "max", 
         "stride": "(2,2)"
       }, 
-      "name": "pool2", 
+      "name": "pool2_wxnet", 
       "inputs": [[16, 0]], 
       "backward_source_id": -1
     }, 
     {
       "op": "null", 
       "param": {}, 
-      "name": "conv3_r_weight", 
+      "name": "conv3_wxnet_r_weight", 
       "inputs": [], 
       "backward_source_id": -1
     }, 
     {
       "op": "null", 
       "param": {}, 
-      "name": "conv3_r_bias", 
+      "name": "conv3_wxnet_r_bias", 
       "inputs": [], 
       "backward_source_id": -1
     }, 
@@ -201,7 +203,7 @@
         "stride": "(1,1)", 
         "workspace": "512"
       }, 
-      "name": "conv3_r", 
+      "name": "conv3_wxnet_r", 
       "inputs": [[17, 0], [18, 0], [19, 0]], 
       "backward_source_id": -1
     }, 
@@ -212,7 +214,7 @@
         "num_outputs": "2", 
         "squeeze_axis": "False"
       }, 
-      "name": "slice3_r", 
+      "name": "slice3_wxnet_r", 
       "inputs": [[20, 0]], 
       "backward_source_id": -1
     }, 
@@ -226,14 +228,14 @@
     {
       "op": "null", 
       "param": {}, 
-      "name": "conv3_weight", 
+      "name": "conv3_wxnet_weight", 
       "inputs": [], 
       "backward_source_id": -1
     }, 
     {
       "op": "null", 
       "param": {}, 
-      "name": "conv3_bias", 
+      "name": "conv3_wxnet_bias", 
       "inputs": [], 
       "backward_source_id": -1
     }, 
@@ -249,7 +251,7 @@
         "stride": "(1,1)", 
         "workspace": "512"
       }, 
-      "name": "conv3", 
+      "name": "conv3_wxnet", 
       "inputs": [[22, 0], [23, 0], [24, 0]], 
       "backward_source_id": -1
     }, 
@@ -260,7 +262,7 @@
         "num_outputs": "2", 
         "squeeze_axis": "False"
       }, 
-      "name": "slice3", 
+      "name": "slice3_wxnet", 
       "inputs": [[25, 0]], 
       "backward_source_id": -1
     }, 
@@ -274,26 +276,27 @@
     {
       "op": "Pooling", 
       "param": {
+        "global_pool": "False", 
         "kernel": "(2,2)", 
         "pad": "(0,0)", 
         "pool_type": "max", 
         "stride": "(2,2)"
       }, 
-      "name": "pool3", 
+      "name": "pool3_wxnet", 
       "inputs": [[27, 0]], 
       "backward_source_id": -1
     }, 
     {
       "op": "null", 
       "param": {}, 
-      "name": "conv4_r_weight", 
+      "name": "conv4_wxnet_r_weight", 
       "inputs": [], 
       "backward_source_id": -1
     }, 
     {
       "op": "null", 
       "param": {}, 
-      "name": "conv4_r_bias", 
+      "name": "conv4_wxnet_r_bias", 
       "inputs": [], 
       "backward_source_id": -1
     }, 
@@ -309,7 +312,7 @@
         "stride": "(1,1)", 
         "workspace": "512"
       }, 
-      "name": "conv4_r", 
+      "name": "conv4_wxnet_r", 
       "inputs": [[28, 0], [29, 0], [30, 0]], 
       "backward_source_id": -1
     }, 
@@ -320,7 +323,7 @@
         "num_outputs": "2", 
         "squeeze_axis": "False"
       }, 
-      "name": "slice4_r", 
+      "name": "slice4_wxnet_r", 
       "inputs": [[31, 0]], 
       "backward_source_id": -1
     }, 
@@ -334,14 +337,14 @@
     {
       "op": "null", 
       "param": {}, 
-      "name": "conv4_weight", 
+      "name": "conv4_wxnet_weight", 
       "inputs": [], 
       "backward_source_id": -1
     }, 
     {
       "op": "null", 
       "param": {}, 
-      "name": "conv4_bias", 
+      "name": "conv4_wxnet_bias", 
       "inputs": [], 
       "backward_source_id": -1
     }, 
@@ -357,7 +360,7 @@
         "stride": "(1,1)", 
         "workspace": "512"
       }, 
-      "name": "conv4", 
+      "name": "conv4_wxnet", 
       "inputs": [[33, 0], [34, 0], [35, 0]], 
       "backward_source_id": -1
     }, 
@@ -368,7 +371,7 @@
         "num_outputs": "2", 
         "squeeze_axis": "False"
       }, 
-      "name": "slice4", 
+      "name": "slice4_wxnet", 
       "inputs": [[36, 0]], 
       "backward_source_id": -1
     }, 
@@ -382,26 +385,27 @@
     {
       "op": "Pooling", 
       "param": {
+        "global_pool": "False", 
         "kernel": "(2,2)", 
         "pad": "(0,0)", 
         "pool_type": "max", 
         "stride": "(2,2)"
       }, 
-      "name": "pool4", 
+      "name": "pool4_wxnet", 
       "inputs": [[38, 0]], 
       "backward_source_id": -1
     }, 
     {
       "op": "null", 
       "param": {}, 
-      "name": "conv5_r_weight", 
+      "name": "conv5_wxnet_r_weight", 
       "inputs": [], 
       "backward_source_id": -1
     }, 
     {
       "op": "null", 
       "param": {}, 
-      "name": "conv5_r_bias", 
+      "name": "conv5_wxnet_r_bias", 
       "inputs": [], 
       "backward_source_id": -1
     }, 
@@ -417,7 +421,7 @@
         "stride": "(1,1)", 
         "workspace": "512"
       }, 
-      "name": "conv5_r", 
+      "name": "conv5_wxnet_r", 
       "inputs": [[39, 0], [40, 0], [41, 0]], 
       "backward_source_id": -1
     }, 
@@ -428,7 +432,7 @@
         "num_outputs": "2", 
         "squeeze_axis": "False"
       }, 
-      "name": "slice5_r", 
+      "name": "slice5_wxnet_r", 
       "inputs": [[42, 0]], 
       "backward_source_id": -1
     }, 
@@ -442,14 +446,14 @@
     {
       "op": "null", 
       "param": {}, 
-      "name": "conv5_weight", 
+      "name": "conv5_wxnet_weight", 
       "inputs": [], 
       "backward_source_id": -1
     }, 
     {
       "op": "null", 
       "param": {}, 
-      "name": "conv5_bias", 
+      "name": "conv5_wxnet_bias", 
       "inputs": [], 
       "backward_source_id": -1
     }, 
@@ -465,7 +469,7 @@
         "stride": "(1,1)", 
         "workspace": "512"
       }, 
-      "name": "conv5", 
+      "name": "conv5_wxnet", 
       "inputs": [[44, 0], [45, 0], [46, 0]], 
       "backward_source_id": -1
     }, 
@@ -476,7 +480,7 @@
         "num_outputs": "2", 
         "squeeze_axis": "False"
       }, 
-      "name": "slice5", 
+      "name": "slice5_wxnet", 
       "inputs": [[47, 0]], 
       "backward_source_id": -1
     }, 
@@ -490,12 +494,13 @@
     {
       "op": "Pooling", 
       "param": {
+        "global_pool": "False", 
         "kernel": "(2,2)", 
         "pad": "(0,0)", 
         "pool_type": "max", 
         "stride": "(2,2)"
       }, 
-      "name": "pool5", 
+      "name": "pool5_wxnet", 
       "inputs": [[49, 0]], 
       "backward_source_id": -1
     }, 
@@ -509,14 +514,14 @@
     {
       "op": "null", 
       "param": {}, 
-      "name": "fc1_weight", 
+      "name": "fc1_wxnet_weight", 
       "inputs": [], 
       "backward_source_id": -1
     }, 
     {
       "op": "null", 
       "param": {}, 
-      "name": "fc1_bias", 
+      "name": "fc1_wxnet_bias", 
       "inputs": [], 
       "backward_source_id": -1
     }, 
@@ -526,7 +531,7 @@
         "no_bias": "False", 
         "num_hidden": "512"
       }, 
-      "name": "fc1", 
+      "name": "fc1_wxnet", 
       "inputs": [[51, 0], [52, 0], [53, 0]], 
       "backward_source_id": -1
     }, 
@@ -537,7 +542,7 @@
         "num_outputs": "2", 
         "squeeze_axis": "False"
       }, 
-      "name": "slice_fc1", 
+      "name": "slice_fc1_wxnet", 
       "inputs": [[54, 0]], 
       "backward_source_id": -1
     }, 
@@ -551,21 +556,21 @@
     {
       "op": "Dropout", 
       "param": {"p": "0.7"}, 
-      "name": "drop1", 
+      "name": "drop1_wxnet", 
       "inputs": [[56, 0]], 
       "backward_source_id": -1
     }, 
     {
       "op": "null", 
       "param": {}, 
-      "name": "fc2_weight", 
+      "name": "fc2_wxnet_weight", 
       "inputs": [], 
       "backward_source_id": -1
     }, 
     {
       "op": "null", 
       "param": {}, 
-      "name": "fc2_bias", 
+      "name": "fc2_wxnet_bias", 
       "inputs": [], 
       "backward_source_id": -1
     }, 
@@ -575,7 +580,7 @@
         "no_bias": "False", 
         "num_hidden": "10575"
       }, 
-      "name": "fc2", 
+      "name": "fc2_wxnet", 
       "inputs": [[57, 0], [58, 0], [59, 0]], 
       "backward_source_id": -1
     }, 
@@ -592,6 +597,7 @@
         "grad_scale": "1", 
         "ignore_label": "-1", 
         "multi_output": "False", 
+        "normalization": "null", 
         "use_ignore": "False"
       }, 
       "name": "softmax", 
